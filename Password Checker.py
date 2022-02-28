@@ -3,15 +3,16 @@ import string
 import random
 
 
-characters = list(string.ascii_uppercase + string.ascii_lowercase + string.digits + string.punctuation)
+#Setting password length
 passwd_len = list(range ( 6 , 20 , 1 ))
 
-
+#Function to suggest random password
 def suggest_random():
     length = random.choice(passwd_len)
     random_passwd = []
     n = 0
 
+#Generate random password containing required characters
     while n <= length:
         random_passwd += random.choice(string.ascii_lowercase)
         n += 1
@@ -26,11 +27,10 @@ def suggest_random():
     random.SystemRandom().shuffle(list_random_passwd)
     print("".join(list_random_passwd))
     
-
     return interaction()
 
 
-
+#Function of response everytime password is invalid
 def response():
     print('Password must be atlease 6-20 characters long, contain uppercase, lowercase, a number and a symbol, try again.')
     response = input('Would you like a password suggestion Y/N? ')
@@ -43,25 +43,26 @@ def response():
         print('Invalid Input')
 
 
+#Function to request and validate password
 def interaction():
     while True:
         passwd = input('Input a Password:')
-        if len(passwd)<6 or len(passwd)>20:
+        if len(passwd)<6 or len(passwd)>20:     #check length is between 6-20 characters
             response()
         
-        elif not re.search('[a-z]', passwd):
+        elif not re.search('[a-z]', passwd):    #check it contains lowercase
             response()
         
-        elif not re.search('[A-Z]', passwd):
+        elif not re.search('[A-Z]', passwd):    #check it contains uppercase
             response()
 
-        elif not re.search('[0-9]', passwd):
+        elif not re.search('[0-9]', passwd):    #check it contains digits
             response()
         
-        elif not re.search('[!@#$%^&*()_-]', passwd):
+        elif not re.search('[!@#$%^&*()_-]', passwd):   #check it contains special characters
             response()
         
-        elif re.search('[ ]', passwd):
+        elif re.search('[ ]', passwd):          #check it doesn't contain spaces
             print('Spaces are not allowed, try again.')
         
         else:
