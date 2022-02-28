@@ -3,31 +3,31 @@ import string
 import random
 
 
-characters = list(string.ascii_uppercase + string.ascii_lowercase + string.digits + "!@#$%^&*()")
+characters = list(string.ascii_uppercase + string.ascii_lowercase + string.digits + string.punctuation)
 passwd_len = list(range ( 6 , 20 , 1 ))
 
 
 def suggest_random():
     length = random.choice(passwd_len)
     random_passwd = []
+    n = 0
 
-    def inner_suggest_passwd():
-        for i in range(length):
-            random_passwd.append(random.choice(characters))
-        
+    while n <= length:
+        random_passwd += random.choice(string.ascii_lowercase)
+        n += 1
+        random_passwd += random.choice(string.ascii_uppercase)
+        n += 1
+        random_passwd += random.choice(string.digits)
+        n += 1
+        random_passwd += random.choice('!@#$%^&*()_-')
+        n += 1
 
-    while True:
-        inner_suggest_passwd()
-        if set(list(string.ascii_lowercase)) & set(random_passwd) != [] and \
-            set(list(string.ascii_uppercase)) & set(random_passwd) != [] and \
-                set(list(string.digits)) & set(random_passwd) != [] and \
-                    set(list('!@#$%^&*()_-')) & set(random_passwd) != []:
-            break
-        else:
-            suggest_random()
-    print("".join(random_passwd))
-    interaction()
-    return
+    list_random_passwd = list(random_passwd)
+    random.SystemRandom().shuffle(list_random_passwd)
+    print("".join(list_random_passwd))
+    
+
+    return interaction()
 
 
 
@@ -67,5 +67,6 @@ def interaction():
         else:
             print('Valid Password.')
             break
+    return exit()
 
 interaction()
