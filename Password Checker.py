@@ -34,10 +34,10 @@ def suggest_random():
 def response():
     print('Password must be atlease 6-20 characters long, contain uppercase, lowercase, a number and a symbol, try again.')
     response = input('Would you like a password suggestion Y/N? ')
-    if response == 'Y':
+    if response == 'Y' or response == 'y':
         print('Try this Password:')
         suggest_random()
-    elif response == 'N':
+    elif response == 'N' or response == 'n':
         return
     else :
         print('Invalid Input')
